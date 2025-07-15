@@ -1,0 +1,81 @@
+# Smithery configuration file: https://smithery.ai/docs/build/project-config
+
+startCommand:
+  type: stdio
+  commandFunction:
+    # A JS function that produces the CLI command based on the given config to start the MCP on stdio.
+    |-
+    (config) => ({
+      command: 'node',
+      args: ['dist/index.js'],
+      env: {
+        FISH_API_KEY: config.fishApiKey,
+        ...(config.modelId ? { FISH_MODEL_ID: config.modelId } : {}),
+        ...(config.referenceId ? { FISH_REFERENCE_ID: config.referenceId } : {}),
+        ...(config.references ? { FISH_REFERENCES: config.references } : {}),
+        ...(config.defaultReference ? { FISH_DEFAULT_REFERENCE: config.defaultReference } : {}),
+        ...(config.outputFormat ? { FISH_OUTPUT_FORMAT: config.outputFormat } : {}),
+        ...(typeof config.streaming === 'boolean' ? { FISH_STREAMING: String(config.streaming) } : {}),
+        ...(config.latency ? { FISH_LATENCY: config.latency } : {}),
+        ...(config.mp3Bitrate ? { FISH_MP3_BITRATE: String(config.mp3Bitrate) } : {}),
+        ...(typeof config.autoPlay === 'boolean' ? { FISH_AUTO_PLAY: String(config.autoPlay) } : {}),
+        ...(config.audioOutputDir ? { AUDIO_OUTPUT_DIR: config.audioOutputDir } : {})
+      }
+    })
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    required:
+      - fishApiKey
+    properties:
+      fishApiKey:
+        type: string
+        description: Your Fish Audio API key
+      modelId:
+        type: string
+        default: s1
+        description: TTS model to use (s1, speech-1.5, speech-1.6)
+      referenceId:
+        type: string
+        description: Default voice reference ID (single reference mode)
+      references:
+        type: string
+        description: JSON array of voice references
+      defaultReference:
+        type: string
+        description: Default reference ID when using multiple references
+      outputFormat:
+        type: string
+        default: mp3
+        description: Default audio format
+      streaming:
+        type: boolean
+        default: false
+        description: Enable streaming mode
+      latency:
+        type: string
+        default: balanced
+        description: Latency mode
+      mp3Bitrate:
+        type: number
+        default: 128
+        description: MP3 bitrate
+      autoPlay:
+        type: boolean
+        default: false
+        description: Auto-play audio
+      audioOutputDir:
+        type: string
+        description: Directory for audio file output
+  exampleConfig:
+    fishApiKey: your_fish_audio_api_key_here
+    modelId: speech-1.6
+    referenceId: id1
+    references: '[{"reference_id":"id1","name":"Alice","tags":["female","english"]}]'
+    defaultReference: id1
+    outputFormat: mp3
+    streaming: false
+    latency: balanced
+    mp3Bitrate: 128
+    autoPlay: false
+    audioOutputDir: /root/.fish-audio-mcp/audio_output
