@@ -4,6 +4,7 @@
   <img src="./dcos/icon_fish-audio.webp" alt="Fish Audio Logo" width="300" height="300" />
 </div>
 
+[![smithery badge](https://smithery.ai/badge/@dinfroy/mcp-fish-audio-server)](https://smithery.ai/server/@dinfroy/mcp-fish-audio-server)
 [![npm version](https://badge.fury.io/js/@alanse%2Ffish-audio-mcp-server.svg)](https://badge.fury.io/js/@alanse%2Ffish-audio-mcp-server) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 
@@ -36,6 +37,15 @@ This MCP server brings Fish Audio's powerful capabilities directly to your LLM w
 
 ### Installation
 
+#### Installing via Smithery
+
+To install mcp-fish-audio-server for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@dinfroy/mcp-fish-audio-server):
+
+```bash
+npx -y @smithery/cli install @dinfroy/mcp-fish-audio-server --client claude
+```
+
+#### Installing Manually
 You can run this MCP server directly using npx:
 
 ```bash
